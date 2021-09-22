@@ -1,0 +1,105 @@
+kind: pipeline
+name: default
+
+workspace:
+  base: /go
+  path: src/github.com/crcresearch/covid-backend
+  
+services:
+- name: database
+  image: postgres
+  environment:
+    POSTGRES_DB: django
+    POSTGRES_USER: django
+    POSTGRES_PASSWORD: django
+
+steps:
+  - name: requirements
+    image: python:3
+    commands:
+      - mkdir python_modules
+      - pip install --target=$PWD/python_modules -r requirements/base.txt
+      - pip install --target=$PWD/python_modules -r requirements/production.txt
+      - pip install --target=$PWD/python_modules -r requirements/development.txt
+      - pip install --target=$PWD/python_modules -r requirements/custom.txt
+      - cp sample.env .env
+  - name: showmigrations
+    image: python:3
+    environment:
+      POSTGRES_HOST: database
+    depends_on:
+      - requirements
+    commands:
+      - export PYTHONPATH=$PYTHONPATH:$PWD/python_modules
+      - export $(grep -v '^#' .env | xargs -d '\n')
+      - bash docker/scripts/generate_secret_key.sh
+  - name: flake8
+    image: python:3
+    commands:
+      - export PYTHONPATH=$PYTHONPATH:$PWD/python_modules
+      # - python -m flake8 --select E --max-line-length=120 dcc 
+      - python -m flake8 dcc --config=flake8.cfg --select E
+    depends_on:
+      - requirements
+  - name: clean_up_python
+    image: python:3
+    depends_on:
+      - flake8
+      - showmigrations
+    commands:
+      - rm -rf python_modules
+  - name: publish_master
+    image: plugins/docker
+    depends_on:
+      - clean_up_python
+    when:
+      branch:
+        - master
+      event:
+        - push
+    settings:
+      username:
+        from_secret: DOCKER_REGISTRY_USERNAME
+      password:
+        from_secret: DOCKER_REGISTRY_PASSWORD
+      repo: zazu.crc.nd.edu/covid/backend
+      registry: zazu.crc.nd.edu
+      tag: 'latest'
+      build_args:
+        - DJANGO_ENVIRONMENT=production
+  - name: publish_azure
+    image: plugins/docker
+    depends_on:
+      - clean_up_python
+    when:
+      branch:
+        - feature-azure
+      event:
+        - push
+    settings:
+      username:
+        from_secret: DOCKER_REGISTRY_USERNAME
+      password:
+        from_secret: DOCKER_REGISTRY_PASSWORD
+      repo: zazu.crc.nd.edu/covid/backend
+      registry: zazu.crc.nd.edu
+      tag: 'azure'
+      build_args:
+        - DJANGO_ENVIRONMENT=production
+  - name: publish_tag
+    image: plugins/docker
+    depends_on:
+      - clean_up_python
+    when:
+      event:
+        - tag
+    settings:
+      username:
+        from_secret: DOCKER_REGISTRY_USERNAME
+      password:
+        from_secret: DOCKER_REGISTRY_PASSWORD
+      repo: zazu.crc.nd.edu/covid/backend
+      registry: zazu.crc.nd.edu
+      auto_tag: true
+      build_args:
+        - DJANGO_ENVIRONMENT=production

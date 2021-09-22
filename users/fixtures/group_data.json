@@ -1,0 +1,18 @@
+[
+  {
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+      "name": "Sample Group",
+      "permissions": []
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 4,
+    "fields": {
+      "name": "Fargate Spot",
+      "permissions": []
+    }
+  }
+]

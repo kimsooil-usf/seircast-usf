@@ -1,0 +1,29 @@
+// $pink: #ed64a6;
+// $warning: $pink;
+
+$theme-colors: (
+  "gray-200": #e9ecef,
+  "gray-300": #dee2e6,
+  "gray-400": #ced4da,
+  "gray-700": #495057,
+  "gray-900": #212529
+);
+
+// $body-bg: #bbb;
+// $body-color: #111;
+
+// $enable-shadows: true;
+// $enable-gradients: true;
+
+// Include Bootstrap and BootstrapVue SCSS files
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootstrap-vue/src/index.scss";
+
+// General style overrides and custom classes
+// body {
+//   margin: 0;
+// }
+// ...
+
+#app {
+}

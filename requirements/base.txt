@@ -1,0 +1,12 @@
+Django>=2.0,<3.0
+django-filter
+djangorestframework
+Markdown
+psycopg2-binary
+#wagtail
+django-crispy-forms
+django-cors-headers
+django-environ
+django-oauth-toolkit
+boto3
+django-storages
