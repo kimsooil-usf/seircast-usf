@@ -11,7 +11,7 @@ This is a combined version of SEIRcast.org's front-(VueJS+NodeJS) and back-end (
 7. In other terminal/command line, run "docker exec -it seircast-usf_djangoweb_1 bash" and then "python manage.py addhashes".
 8. Now open browser and go to "http://localhost". Click "sign-in" and type same id/password used in Django administration. Click "Epidemic" (if error, reload page), "Resources", or "Map". (It takes a minute or so depending on the speed of computer you are using).
 
-# Getting Started
+# Getting Started (Just copied from original repo - will be updated later)
 This is DJANGO dockerized application for displaying COVID-19 projections.
 
 In order to begin using this repository, along with any other migrations that involve user groups, you will immediately need to run the manage.py addhashes --all to download all the current datahashes used for the model. Without these, the model will not run. The command is outlined further below.
