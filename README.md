@@ -3,7 +3,7 @@ This is a combined version of SEIRcast.org's front-(VueJS+NodeJS) and back-end (
 
 ### Steps to follow
 1. Run "docker-compose up --build" in the folder you cloned this repo
-2. You will get a error regarding "seircast.azurecr.io/covid/model" container registry. You must be an authorized to access Azure Container Registry. To login/authenticate, see https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli
+2. You will get a error regarding "seircast.azurecr.io/covid/model" container registry. You must be an authorized to access Azure Container Registry. To login/authenticate, see https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli. Basically, install Azure CLI and running "az login" will resolve the issue.
 3. After all is launched without error, you need to login to http://localhost:8000/admin with id/password in .env
 4. In Django administration, add a group called "Onboard Compute", Click "users"->"admin" and click "Onboard Compute" then click right-direction arrow then "Save".
 5. Go back to "Home" of Django administration, click "Applications", change Client id and Client secret to ones which are in ./covid-dashboard/.env.local. Choose "Client type=Confidential", "Authorization grant type=Resource owner password-based", "Name=local dev" then click "Save".
