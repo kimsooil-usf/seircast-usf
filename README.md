@@ -1,3 +1,16 @@
+# How to launch front and backend (localhost)
+This is a combined version of SEIRcast.org's front-(VueJS+NodeJS) and back-end (Django+Model_Flask).
+
+### Steps to follow
+1. Run "docker-compose up --build" in the folder you cloned this repo
+2. You will get a error regarding "seircast.azurecr.io/covid/model" container registry. You must be an authorized to access Azure Container Registry. To login/authenticate, see https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli
+3. After all is launched without error, you need to login to http://localhost:8000/admin with id/password in .env
+4. In Django administration, add a group called "Onboard Compute", Click "users"->"admin" and click "Onboard Compute" then click right-direction arrow then "Save".
+5. Go back to "Home" of Django administration, click "Applications", change Client id and Client secret to ones which are in ./covid-dashboard/.env.local. Choose "Client type=Confidential", "Authorization grant type=Resource owner password-based", "Name=local dev" then click "Save".
+6. Go back to "Home" of Django administration, click "Sates" and Add only one state and only one County e.g. Florida, FL, US, Hillsborough, 2021-03-27, 2021-05-04, 2021-06-15, 2021-06-15, 2021-08-01 (leave social distancing and percentage Quarantined as default/unchanged)
+7. In other terminal/command line, run "docker exec -it seircast-usf_djangoweb_1 bash" and then "python manage.py addhashes".
+8. Now open browser and go to "http://localhost". Click "sign-in" and type same id/password used in Django administration. Click "Epidemic" (if error, reload page), "Resources", or "Map". (It takes a minute or so depending on the speed of computer you are using).
+
 # Getting Started
 This is DJANGO dockerized application for displaying COVID-19 projections.
 
