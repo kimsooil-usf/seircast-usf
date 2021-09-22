@@ -31,4 +31,4 @@ RUN chmod +x docker/scripts/init.sh
 RUN chmod +x docker/scripts/wait_for_postgres.sh
 RUN chmod +x docker/scripts/generate_secret_key.sh
 
-ENTRYPOINT ["/app/docker/scripts/init.sh"]
+ENTRYPOINT ["bash", "/app/docker/scripts/init.sh"]
