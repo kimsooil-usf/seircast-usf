@@ -1,5 +1,5 @@
 # Ignore the .env file that has the environment variables.
-.env
+#.env
 
 # Not sure what these are. Ignore these.
 __pycache__
