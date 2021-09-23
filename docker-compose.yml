@@ -11,14 +11,14 @@ volumes:
     volume_django_hash_output: 
 services:
     # Test send/receive email. 
-    mailhog:
-        image: mailhog/mailhog
-        restart: unless-stopped
-        ports:
-            #- "127.0.0.1:8025:8025"
-            - 0.0.0.0:8025:8025
-        networks:
-            - frontend
+    #mailhog:
+    #    image: mailhog/mailhog
+    #    restart: unless-stopped
+    #    ports:
+    #        #- "127.0.0.1:8025:8025"
+    #        - 0.0.0.0:8025:8025
+    #    networks:
+    #        - frontend
     # Postgresql database settings.
     postgresdb:
         image: postgres:9.6-alpine
@@ -65,7 +65,7 @@ services:
             - 0.0.0.0:8000:8000
         depends_on:
             - postgresdb
-            - mailhog
+            #- mailhog
         environment:
             - POSTGRES_DB
             - POSTGRES_USER
