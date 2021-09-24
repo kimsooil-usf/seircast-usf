@@ -34,16 +34,7 @@ services:
             - 0.0.0.0:5432:5432
         networks:
             - backend
-    # web admin of postgresdb
-    #pgadmin:
-    #    container_name: pgadmin4_container
-    #    image: dpage/pgadmin4
-    #    restart: always
-    #    environment:
-    #        PGADMIN_DEFAULT_EMAIL: admin@admin.com
-    #        PGADMIN_DEFAULT_PASSWORD: django
-    #    ports:
-    #        - "5050:80"         
+            #- frontend # added for external pgadmin access
     # Django settings.
     djangoweb:
         build:
