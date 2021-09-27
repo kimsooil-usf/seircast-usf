@@ -34,41 +34,32 @@ volumes:
         share_name: hashoutput
         storage_account_name: usfmystorageaccount
 services:
-    # Test send/receive email. 
-    mailhog:
-        image: mailhog/mailhog
-        restart: unless-stopped
-        ports:
-            #- "127.0.0.1:8025:8025"
-            - 8025:8025
-        networks:
-            - frontend
     # Postgresql database settings.
-    postgresdb:
-        image: postgres:9.6-alpine
-        environment:
-            - POSTGRES_DB
-            - POSTGRES_USER
-            - POSTGRES_PASSWORD
-        restart: unless-stopped
-        volumes:
-            - postgresdata:/var/lib/postgresql/data
-        ports:
+    #postgresdb:
+        #image: postgres:9.6-alpine
+        #environment:
+            #- POSTGRES_DB
+            #- POSTGRES_USER
+            #- POSTGRES_PASSWORD
+        #restart: unless-stopped
+        #volumes:
+            #- postgresdata:/var/lib/postgresql/data
+        #ports:
             #- "127.0.0.1:5432:5432"
-            - 5432:5432
-        networks:
-            - backend
+            #- 5432:5432
+        #networks:
+            #- backend
     # Django settings.
     djangoweb:
-        build:
-            context: .
-            args:
-                - DJANGO_ENVIRONMENT=${DJANGO_ENVIRONMENT:-production}
+        #build:
+            #context: .
+            #args:
+                #- DJANGO_ENVIRONMENT=${DJANGO_ENVIRONMENT:-production}
         #image: djangoapp:latest
         image: seircastusf.azurecr.io/djangoweb
-        networks:
-            - backend
-            - frontend
+        #networks:
+            #- backend
+            #- frontend
         volumes:
             - .:/app/
             - djangostatic:/var/staticfiles
@@ -80,12 +71,12 @@ services:
             - 8000:8000
         depends_on:
             - postgresdb
-            - mailhog
+            #- mailhog
         environment:
-            - POSTGRES_DB
-            - POSTGRES_USER
-            - POSTGRES_PASSWORD
-            - POSTGRES_HOST=postgresdb # Name of the postgresql service.
+            - POSTGRES_DB=django
+            - POSTGRES_USER=xjqwscoxuq
+            - POSTGRES_PASSWORD=Q85CU8NJA65CO1GL$
+            - POSTGRES_HOST=seircast-postgresdb.postgres.database.azure.com
             - POSTGRES_PORT
             - DJANGO_SETTINGS_MODULE
             - FORCE_SCRIPT_NAME
@@ -124,9 +115,9 @@ services:
             - 5000:5000
     dashboard:
         image: seircastusf.azurecr.io/dashboard
-        build:
-            context: ./covid-dashboard
-            dockerfile: Dockerfile
+        #build:
+            #context: ./covid-dashboard
+            #dockerfile: Dockerfile
         depends_on:
             - djangoweb
         ports:
