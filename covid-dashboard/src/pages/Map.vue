@@ -30,7 +30,7 @@
             <Map :map-data="getMapData" :selected-region="selectedRegion" :key="`${selectedRegion}_map`"/>
             <b-card-footer>
               <p class="text-secondary tw-text-xs">
-                Please see the methodology described on <b-link href="https://covid.crc.nd.edu/methodology.html">https://covid.crc.nd.edu/methodology.html</b-link> for a full description of the COVID-19 SEIR model structure and underlying parameter assumptions.
+                Please see the methodology described on <b-link href="https://seircast.org/methodology.html">https://seircast.org/methodology.html</b-link> for a full description of the COVID-19 SEIR model structure and underlying parameter assumptions.
               </p>
               <p class="text-secondary tw-text-xs">
                 Confirmed cases are given as reported in the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University.

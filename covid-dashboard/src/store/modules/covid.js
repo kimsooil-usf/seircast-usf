@@ -420,7 +420,8 @@ export default {
         country: country,
         state: state,
         nDraws: context.state.meta.model_defaults.nDraws,
-        max_age: 10,
+        //max_age: 10,
+        max_age: -1,
         lockdown_strength: lockdown_strength,
         social_distancing_strength: social_distancing_strength
       });
@@ -465,7 +466,8 @@ export default {
         country: country,
         state: state,
         nDraws: context.state.meta.model_defaults.nDraws,
-        max_age: 10,
+        //max_age: 10,
+        max_age: -1,
         lockdown_strength: lockdown_strength,
         social_distancing_strength: social_distancing_strength
       });
