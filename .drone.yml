@@ -59,33 +59,33 @@ steps:
         - push
     settings:
       username:
-        from_secret: DOCKER_REGISTRY_USERNAME
+        from_secret: AZURE_CONTAINER_REGISTRY_USERNAME
       password:
-        from_secret: DOCKER_REGISTRY_PASSWORD
-      repo: zazu.crc.nd.edu/covid/backend
-      registry: zazu.crc.nd.edu
+        from_secret: AZURE_CONTAINER_REGISTRY_PASSWORD
+      repo: seircastusf.azurecr.io/covid/backend
+      registry: seircastusf.azurecr.io
       tag: 'latest'
       build_args:
         - DJANGO_ENVIRONMENT=production
-  - name: publish_azure
-    image: plugins/docker
-    depends_on:
-      - clean_up_python
-    when:
-      branch:
-        - feature-azure
-      event:
-        - push
-    settings:
-      username:
-        from_secret: DOCKER_REGISTRY_USERNAME
-      password:
-        from_secret: DOCKER_REGISTRY_PASSWORD
-      repo: zazu.crc.nd.edu/covid/backend
-      registry: zazu.crc.nd.edu
-      tag: 'azure'
-      build_args:
-        - DJANGO_ENVIRONMENT=production
+  # - name: publish_azure
+  #   image: plugins/docker
+  #   depends_on:
+  #     - clean_up_python
+  #   when:
+  #     branch:
+  #       - feature-azure
+  #     event:
+  #       - push
+  #   settings:
+  #     username:
+  #       from_secret: DOCKER_REGISTRY_USERNAME
+  #     password:
+  #       from_secret: DOCKER_REGISTRY_PASSWORD
+  #     repo: zazu.crc.nd.edu/covid/backend
+  #     registry: zazu.crc.nd.edu
+  #     tag: 'azure'
+  #     build_args:
+  #       - DJANGO_ENVIRONMENT=production
   - name: publish_tag
     image: plugins/docker
     depends_on:
@@ -95,11 +95,11 @@ steps:
         - tag
     settings:
       username:
-        from_secret: DOCKER_REGISTRY_USERNAME
+        from_secret: AZURE_CONTAINER_REGISTRY_USERNAME
       password:
-        from_secret: DOCKER_REGISTRY_PASSWORD
-      repo: zazu.crc.nd.edu/covid/backend
-      registry: zazu.crc.nd.edu
+        from_secret: AZURE_CONTAINER_REGISTRY_PASSWORD
+      repo: seircastusf.azurecr.io/covid/backend
+      registry: seircastusf.azurecr.io
       auto_tag: true
       build_args:
         - DJANGO_ENVIRONMENT=production
