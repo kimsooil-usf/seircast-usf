@@ -105,7 +105,7 @@ services:
         depends_on:
             - djangoweb
         ports:
-            - 0.0.0.0:8080:80
+            - 0.0.0.0:80:80
         networks:
             - backend
             - frontend
